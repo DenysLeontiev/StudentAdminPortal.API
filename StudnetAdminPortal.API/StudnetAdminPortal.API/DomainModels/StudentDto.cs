@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StudnetAdminPortal.API.DataModels
+namespace StudnetAdminPortal.API.DomainModels
 {
-	public class Student
+	public class StudentDto
 	{
         public Guid Id { get; set; }
         public string FirstName { get; set; }
@@ -15,9 +15,7 @@ namespace StudnetAdminPortal.API.DataModels
         public long Mobile { get; set; }
         public string ProfileImageUrl { get; set; }
         public Guid GenderId { get; set; }
-
-        //Navigation properties
-        public Gender Gender { get; set; }
-        public Address Address { get; set; }
+        public GenderDto Gender { get; set; }
+        public AddressDto Address { get; set; }
     }
 }
