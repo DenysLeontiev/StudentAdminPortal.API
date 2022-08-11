@@ -16,6 +16,13 @@ namespace StudnetAdminPortal.API.Repositories
 			_context = context;
 		}
 
+		public async Task<Student> GetStudentAsync(Guid studentId)
+		{
+			var student = await _context.Student.Include(nameof(Gender)).Include(nameof(Address)).FirstOrDefaultAsync(student => student.Id == studentId);
+
+			return student;
+		}
+
 		public async Task<List<Student>> GetStudentsAsync()
 		{
 			return await _context.Student.Include(nameof(Gender)).Include(nameof(Address)).ToListAsync();
