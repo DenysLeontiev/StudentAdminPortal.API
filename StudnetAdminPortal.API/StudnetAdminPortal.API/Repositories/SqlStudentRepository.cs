@@ -16,6 +16,19 @@ namespace StudnetAdminPortal.API.Repositories
 			_context = context;
 		}
 
+		public async Task<Student> DeleteStudent(Guid studentId)
+		{
+			var student = await GetStudentAsync(studentId);
+			if(student != null)
+			{
+				_context.Student.Remove(student);
+				await _context.SaveChangesAsync();
+				return student;
+			}
+
+			return null;
+		}
+
 		public async Task<bool> Exist(Guid studentId)
 		{
 			return await _context.Student.AnyAsync(student => student.Id == studentId);
