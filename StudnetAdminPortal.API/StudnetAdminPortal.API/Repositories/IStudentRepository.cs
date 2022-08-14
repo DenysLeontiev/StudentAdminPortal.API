@@ -9,5 +9,8 @@ namespace StudnetAdminPortal.API.Repositories
 	{
 		Task<List<Student>> GetStudentsAsync();
 		Task<Student> GetStudentAsync(Guid studentId);
+		Task<List<Gender>> GetGendersAsync();
+		Task<bool> Exist(Guid studentId);
+		Task<Student> UpdateStudent(Guid studentId, Student studentRequest);
 	}
 }

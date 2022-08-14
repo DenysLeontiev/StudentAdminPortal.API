@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using StudnetAdminPortal.API.DataModels;
 using StudnetAdminPortal.API.DomainModels;
+using StudnetAdminPortal.API.Profiles.AfterMaps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,11 @@ namespace StudnetAdminPortal.API.Profiles
 	{
 		public AutoMapperProfiles()
 		{
-			CreateMap<Student, StudentDto>().ReverseMap();
+			CreateMap<Student, StudentDto>().ReverseMap();  // <source, destination>
 			CreateMap<Gender, GenderDto>().ReverseMap();
 			CreateMap<Address, AddressDto>().ReverseMap();
+
+			CreateMap<UpdateStundetRequest, Student>().AfterMap<UpdateStudentRequestAfterMap>();
 		}
 	}
 }

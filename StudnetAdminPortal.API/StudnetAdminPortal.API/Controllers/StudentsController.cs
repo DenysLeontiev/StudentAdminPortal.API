@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using StudnetAdminPortal.API.DataModels;
 using StudnetAdminPortal.API.DomainModels;
 using StudnetAdminPortal.API.Repositories;
 using System;
@@ -32,16 +33,33 @@ namespace StudnetAdminPortal.API.Controllers
 
 		[HttpGet]
 		[Route("[controller]/{studentId:guid}")]
-		public async Task<IActionResult> GetStudents([FromRoute]  Guid studentId)
+		public async Task<IActionResult> GetStudents([FromRoute] Guid studentId)
 		{
 			var student = await studentRepository.GetStudentAsync(studentId);
 
-			if(student == null)
+			if (student == null)
 			{
 				return NotFound();
 			}
 
 			return Ok(mapper.Map<StudentDto>(student));
+		}
+
+		[HttpPut]
+		[Route("[controller]/{studentId:guid}")]
+		public async Task<IActionResult> UpdateStudentsAsync([FromRoute] Guid studentId, [FromBody] UpdateStundetRequest request)
+		{
+			if (await studentRepository.Exist(studentId))
+			{
+				var updatedStudent = await studentRepository.UpdateStudent(studentId, mapper.Map<Student>(request));
+				if (updatedStudent != null)
+				{
+					return Ok(mapper.Map<StudentDto>(updatedStudent));
+				}
+				//stopper here
+			}
+
+			return NotFound();
 		}
 	}
 }
