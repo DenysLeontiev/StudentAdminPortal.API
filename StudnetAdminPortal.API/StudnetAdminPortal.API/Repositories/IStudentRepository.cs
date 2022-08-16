@@ -13,5 +13,6 @@ namespace StudnetAdminPortal.API.Repositories
 		Task<bool> Exist(Guid studentId);
 		Task<Student> UpdateStudent(Guid studentId, Student studentRequest);
 		Task<Student> DeleteStudent(Guid studentId);
+		Task<Student> AddStudent(Student student);
 	}
 }

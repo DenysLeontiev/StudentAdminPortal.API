@@ -32,7 +32,7 @@ namespace StudnetAdminPortal.API.Controllers
 		}
 
 		[HttpGet]
-		[Route("[controller]/{studentId:guid}")]
+		[Route("[controller]/{studentId:guid}"), ActionName("GetStudents")]
 		public async Task<IActionResult> GetStudents([FromRoute] Guid studentId)
 		{
 			var student = await studentRepository.GetStudentAsync(studentId);
@@ -73,6 +73,23 @@ namespace StudnetAdminPortal.API.Controllers
 			}
 
 			return NotFound();
+		}
+
+		//[HttpPost]
+		//[Route("[controller]/Add")]
+		//public async Task<IActionResult> AddStudent([FromBody] AddStudentRequest request)
+		//{
+		//	var student = await studentRepository.AddStudent(mapper.Map<Student>(request));
+		//	return CreatedAtAction(nameof(GetStudents), new { studentId = student.Id }, mapper.Map<StudentDto>(student));
+		//}
+
+		[HttpPost]
+		[Route("[controller]/Add")]
+		public async Task<IActionResult> AddStudentAsync([FromBody] AddStudentRequest request)
+		{
+			var student = await studentRepository.AddStudent(mapper.Map<Student>(request));
+			return CreatedAtAction(nameof(GetStudents), new { studentId = student.Id },
+				mapper.Map<Student>(student));
 		}
 	}
 }

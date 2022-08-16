@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StudnetAdminPortal.API.Profiles.AfterMaps
 {
-	public class UpdateStudentRequestAfterMap : IMappingAction<UpdateStundetRequest, Student>  // Customa map configuration
+	public class UpdateStudentRequestAfterMap : IMappingAction<UpdateStundetRequest, Student>  // Custom map configuration
 	{
 		public void Process(UpdateStundetRequest source, Student destination, ResolutionContext context)
 		{

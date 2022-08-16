@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StudnetAdminPortal.API.DomainModels
 {
-	public class UpdateStundetRequest
+	public class AddStudentRequest
 	{
         public string FirstName { get; set; }
         public string LastName { get; set; }

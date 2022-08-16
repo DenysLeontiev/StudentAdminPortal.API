@@ -18,6 +18,8 @@ namespace StudnetAdminPortal.API.Profiles
 			CreateMap<Address, AddressDto>().ReverseMap();
 
 			CreateMap<UpdateStundetRequest, Student>().AfterMap<UpdateStudentRequestAfterMap>();
+			 
+			CreateMap<AddStudentRequest, Student>().AfterMap<AddStudentRequestAfterMap>();
 		}
 	}
 }
