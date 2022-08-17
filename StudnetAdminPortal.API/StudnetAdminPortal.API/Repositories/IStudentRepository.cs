@@ -14,5 +14,6 @@ namespace StudnetAdminPortal.API.Repositories
 		Task<Student> UpdateStudent(Guid studentId, Student studentRequest);
 		Task<Student> DeleteStudent(Guid studentId);
 		Task<Student> AddStudent(Student student);
+		Task<bool> UpdateProfileImage(Guid studentId, string profileImageUrl);
 	}
 }
