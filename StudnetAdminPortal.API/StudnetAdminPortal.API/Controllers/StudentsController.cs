@@ -98,19 +98,32 @@ namespace StudnetAdminPortal.API.Controllers
 
 		[HttpPost]
 		[Route("[controller]/{studentId:guid}/upload-image")]
-		public async Task<IActionResult> UploadImage([FromRoute] Guid studentId, IFormFile file)
+		public async Task<IActionResult> UploadImage([FromRoute] Guid studentId, IFormFile fileImage)
 		{
-			if(await studentRepository.Exist(studentId))
+			var validExtensions = new List<string>
 			{
-				var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
-				var fileImagePath = await imageRepository.Upload(file, fileName);
+				".jpeg", ".png", ".gif", ".jpg",
+			};
 
-				if(await studentRepository.UpdateProfileImage(studentId, fileImagePath))
+			if(fileImage != null && fileImage.Length > 0)
+			{
+				string imageExtension = Path.GetExtension(fileImage.FileName);
+
+				if(validExtensions.Contains(imageExtension))
 				{
-					return Ok(fileImagePath);
-				}
+					if (await studentRepository.Exist(studentId))
+					{
+						var fileName = Guid.NewGuid() + Path.GetExtension(imageExtension);
+						var fileImagePath = await imageRepository.Upload(fileImage, fileName);
 
-				return StatusCode(StatusCodes.Status500InternalServerError, "An error occured while uploading the image");
+						if (await studentRepository.UpdateProfileImage(studentId, fileImagePath))
+						{
+							return Ok(fileImagePath);
+						}
+
+						return StatusCode(StatusCodes.Status500InternalServerError, "An error occured while uploading the image");
+					}
+				}
 			}
 
 			return NotFound();

@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -53,6 +54,8 @@ namespace StudnetAdminPortal.API
 			});
 
 			services.AddAutoMapper(typeof(Startup).Assembly); // Assembly.GetExecutingAssembly()
+
+			services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,9 +73,15 @@ namespace StudnetAdminPortal.API
 			app.UseStaticFiles(new StaticFileOptions
 			{
 				FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Resources")),
-				RequestPath  = "/Resources"
-				
-			}); 
+				RequestPath = "/Resources"
+
+			});
+
+			//app.UseStaticFiles(new StaticFileOptions
+			//{
+			//	FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Resources")),
+			//	RequestPath = "/Resources"
+			//}) ; 
 
 			app.UseRouting();
 
